@@ -141,7 +141,6 @@ configure_runner() {
 
 }
 
-
 # Opt into runner reusage because a value was given
 if [[ -n "${CONFIGURED_ACTIONS_RUNNER_FILES_DIR}" ]]; then
   echo "Runner reusage is enabled"
@@ -181,7 +180,12 @@ if [[ ${_START_DOCKER_SERVICE} == "true" ]]; then
 fi
 
 # Container's command (CMD) execution as runner user
-
+source ${NVM_DIR}/nvm.sh
+echo -e "# Current System Information"
+echo -e "- nvm: $(nvm -v)"
+echo -e "- node: $(node -v)"
+echo -e "- npm: $(npm -v)"
+echo -e "- yarn: $(yarn -v)"
 
 if [[ ${_RUN_AS_ROOT} == "true" ]]; then
   if [[ $(id -u) -eq 0 ]]; then
