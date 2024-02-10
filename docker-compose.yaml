@@ -1,19 +1,20 @@
 version: '3.9'
 
 services:
-  runner_vuepress:
-    image: tkgling/github-runner:latest
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+  github:
+    build:
+      context: src/node
+      dockerfile: Dockerfile
+      args:
+        - NODE_VERSION=20.11.0
     restart: unless-stopped
     container_name: github_runner
     platform: linux/arm64
     tty: true  
     stdin_open: true
     environment:
-      REPO_URL: https://github.com/tkgstrator/vuepress-blog-next
-      RUNNER_NAME: apple.m1.pro
+      REPO_URL: https://github.com/salmonstats3/av5ja_stats_api
+      RUNNER_NAME: intel.n100
       RUNNER_SCOPE: repo
       RUN_AS_ROOT: true
       ACCESS_TOKEN: $ACCESS_TOKEN
