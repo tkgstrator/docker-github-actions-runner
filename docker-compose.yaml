@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  runner_vuepress:
+    image: tkgling/github-runner:latest
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: github_runner
+    platform: linux/arm64
+    tty: true  
+    stdin_open: true
+    environment:
+      REPO_URL: https://github.com/tkgstrator/vuepress-blog-next
+      RUNNER_NAME: apple.m1.pro
+      RUNNER_SCOPE: repo
+      RUN_AS_ROOT: true
+      ACCESS_TOKEN: $ACCESS_TOKEN
+    security_opt:
+      - label:disable
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'

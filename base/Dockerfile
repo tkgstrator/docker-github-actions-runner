@@ -8,12 +8,19 @@ ENV GIT_LFS_VERSION="3.2.0"
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
-# hadolint ignore=SC2086,DL3015,DL3008,DL3013,SC2015
+ENV NODE_VERSION=20.11.0
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN echo en_US.UTF-8 UTF-8 >> /etc/locale.gen \
     && apt-get update \
     && apt-get install -y --no-install-recommends curl \
     tar \
     ca-certificates \
-    locales
+    jq \
+    dumb-init \
+    locales 
+RUN groupadd -g 121 runner \
+    && useradd -mr -d /home/runner -u 1001 -g 121 runner \
+    && usermod -aG sudo runner \
+    && echo '%sudo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
